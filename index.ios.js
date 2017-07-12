@@ -13,19 +13,26 @@ import {
     NativeModules
 } from 'react-native';
 
+import UShare from './share/share';
+import SharePlatform from './share/SharePlatform';
 export default class ReactNativeShare extends Component {
     /**
-     * content内容
-     * imgurl图片链接
-     * 平台：
-     *  0:QQ; 1:新浪; 2:微信; 3:微信朋友圈;4:FACEBOOK;
+     * 参数说明：
+     * 1. 标题
+     * 2. 内容
+     * 3. 跳转链接
+     * 4. 图片链接
+     * 5. 分享平台
+     * 6. 分享结果回调
      */
     _share() {
-        NativeModules.sharemodule.share('标题','内容', 'http://baidu.com','http://dev.umeng.com/images/tab2_1.png', 0,
+        UShare.share('标题','内容',
+         'http://baidu.com','http://dev.umeng.com/images/tab2_1.png', SharePlatform.QQ,
             (code, message) => {
+                // 分享成功：code=200
                 // ToastAndroid.show(message,ToastAndroid.SHORT);
-                console.log(code)
-            });
+                
+        });
     }
   render() {
     return (
