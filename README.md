@@ -1,17 +1,12 @@
 # react-native-share
-#### 一行代码，双平台分享  
-#### 支持平台：【QQ】【QQ空间】【微信】【朋友圈】【微博】【FaceBook】
+#### [一行代码，双平台分享]  支持平台：【QQ】【QQ空间】【微信】【朋友圈】【微博】【FaceBook】
+#### 点击查看详细配置：http://blog.csdn.net/u013718120/article/details/75040805
 
 #### 【 Android平台配置 】
-
 ##### 1. app目录下创建 libs 文件夹，添加依赖文件【直接复制源码中 libs 目录即可】
-
 ##### 2. app / src / main 目录下创建 jniLibs 目录，添加JNI文件【直接复制源码中 jniLibs 目录即可】
-
 ##### 3. 包名目录下，引入所需交互代码【直接复制源码中 apshare、wxapi 、 WBShareActivity 、module 即可，注意import的路径是否正确】
-
 ##### 4. 在AndroidMainfest.xml文件下添加权限【直接复制源码即可】
-
     <uses-permission android:name="android.permission.INTERNET" />  
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />  
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />  
@@ -21,7 +16,6 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />  
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />  
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />  
-
 ##### 5. 在AndroidMainfest.xml文件下的 <application></application>中添加分享平台【直接复制源码即可】
 
     <activity  
@@ -76,16 +70,12 @@
     </meta-data>  
 
 ##### 6. 使用【keytool -genkey -v -keystore my-release-key.keystore -alias my-key-alias -keyalg RSA -keysize 2048 -validity 10000】生成签名文件，并将签名文件放入app目录
-
 ##### 7. 在gradle.properties文件下，添加签名信息【直接复制源码即可】
-
      MYAPP_RELEASE_STORE_FILE=my-release-key.keystore  
      MYAPP_RELEASE_KEY_ALIAS=my-key-alias  
      MYAPP_RELEASE_STORE_PASSWORD=123456（填写自己设置的密码）  
      MYAPP_RELEASE_KEY_PASSWORD=123456 （填写自己设置的密码）  
-
 ##### 8. 在app / build.gradle 文件下的添加签名配置【直接复制源码即可】
-
      android {     
        ...     
        defaultConfig {     
@@ -106,9 +96,7 @@
          }     
        }    
      }    
-
 ##### 9. 在MainApplication中初始化分享【直接复制源码即可】
-
     @Override  
     protected List<ReactPackage> getPackages() {  
       return Arrays.<ReactPackage>asList(  
@@ -131,9 +119,7 @@
       PlatformConfig.setQQZone("1106207359", "3JjbG8aXMuh5w0sV");  
       PlatformConfig.setSinaWeibo("2733400964", "fac50980a44e3e3afd4bc968ea572887", "www.baidu.com");  
     }  
-
 ##### 10. 在MainActivity中初始化分享回调【直接复制源码即可】
-
     @Override  
       protected void onCreate(Bundle savedInstanceState) {  
           super.onCreate(savedInstanceState);  
@@ -145,18 +131,11 @@
           super.onActivityResult(requestCode, resultCode, data);  
           UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);  
       }  
-
-
 #### 【 iOS平台配置 】
-
 ##### 1. 将源码中 ios 目录下的UMSocial添加到工程，直接拖进即可
-
 ##### 2. 选择TARGET下的项目，在Build Setting下找到Other Linker Flags加入-ObjC ，注意不要写为-Objc
-
 ##### 3. 加入U-Share SDK依赖的系统库
-
 ###### 依次添加如下依赖：
-
 SystemConfiguration.framework
 CoreGraphics.framework
 CoreTelephony.framework
@@ -166,7 +145,6 @@ libc++.tbd
 libz.tbd
 
 ##### 4. 配置SSO白名单【直接复制即可】
-
     <key>LSApplicationQueriesSchemes</key>  
     <array>  
         <!-- 微信 URL Scheme 白名单-->  
@@ -226,22 +204,18 @@ libz.tbd
         <string>fbauth2</string>  
         <string>fbshareextension</string>  
     </array>  
-
+    
 ##### 5. 配置URL Scheme
-
 ##### 微信 	微信appKey 	wxdc1e388c3822c80b 	 
 ##### QQ/Qzone/TIM 	需要添加两项URL Scheme：
 ##### 1、"tencent"+腾讯QQ互联应用appID
 ##### 2、“QQ”+腾讯QQ互联应用appID转换成十六进制（不足8位前面补0） 	如appID：100424468 1、tencent100424468 
 ##### 3、QQ05fc5b14 	QQ05fc5b14为100424468转十六进制而来，因不足8位向前补0，然后加"QQ"前缀
 ##### 新浪微博 	“wb”+新浪appKey 	wb3921700954
-
 ##### Facebook 	“fb”+FacebookID 	fb506027402887373
 
 ##### 6.在AppDelegate.m中初始化U-Share及第三方平台
-
 ##### （1）引入头文件: #import<UMSocialCore/UMSocialCore.h>【直接复制即可】
-
 ##### （2）launchOptions中设置友盟Key【直接复制即可】
 
     /* 打开调试日志 */  
@@ -253,9 +227,7 @@ libz.tbd
     [self configUSharePlatforms];  
       
     [self confitUShareSettings];  
-
 ##### （3）添加如下代码，配置第三方平台【直接复制即可，修改对应key,secret】
-
     - (void)configUSharePlatforms  
     {  
         /*  
@@ -283,9 +255,7 @@ libz.tbd
         /* 设置Facebook的appKey和UrlString */  
         [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Facebook appKey:@"506027402887373"  appSecret:nil redirectURL:nil];  
     }  
-
 ##### （4）设置回调【直接复制即可】
-
     - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation  
     {  
         //6.3的新的API调用，是为了兼容国外平台(例如:新版facebookSDK,VK等)的调用[如果用6.2的api调用会没有回调],对国内平台没有影响  
