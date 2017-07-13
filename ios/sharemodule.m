@@ -50,6 +50,9 @@ RCT_EXPORT_METHOD(share:(NSString*)title descr:(NSString*)descr
       type = UMSocialPlatformType_WechatTimeLine;
       break;
     case 4:
+      type = UMSocialPlatformType_Qzone;
+      break;
+    case 5:
       type = UMSocialPlatformType_Facebook;
       break;
     default:
