@@ -240,9 +240,9 @@ libz.tbd
 
 ##### 6.在AppDelegate.m中初始化U-Share及第三方平台
 
-##### （1）引入头文件: #import<UMSocialCore/UMSocialCore.h>
+##### （1）引入头文件: #import<UMSocialCore/UMSocialCore.h>【直接复制即可】
 
-##### （2）launchOptions中设置友盟Key
+##### （2）launchOptions中设置友盟Key【直接复制即可】
 
     /* 打开调试日志 */  
     [[UMSocialManager defaultManager] openLog:YES];  
@@ -254,7 +254,7 @@ libz.tbd
       
     [self confitUShareSettings];  
 
-##### （3）添加如下代码，配置第三方平台
+##### （3）添加如下代码，配置第三方平台【直接复制即可，修改对应key,secret】
 
     - (void)configUSharePlatforms  
     {  
@@ -284,7 +284,7 @@ libz.tbd
         [[UMSocialManager defaultManager] setPlaform:UMSocialPlatformType_Facebook appKey:@"506027402887373"  appSecret:nil redirectURL:nil];  
     }  
 
-##### （4）设置回调
+##### （4）设置回调【直接复制即可】
 
     - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation  
     {  
