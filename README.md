@@ -1,6 +1,6 @@
 # react-native-share
 #### [一行代码，双平台分享]  支持平台：【QQ】【QQ空间】【微信】【朋友圈】【微博】【FaceBook】
-#### 点击查看详细配置：http://blog.csdn.net/u013718120/article/details/75040805
+#### 详细配置：http://blog.csdn.net/u013718120/article/details/75040805
 
 #### 【 Android平台配置 】
 ##### 1. app目录下创建 libs 文件夹，添加依赖文件【直接复制源码中 libs 目录即可】
