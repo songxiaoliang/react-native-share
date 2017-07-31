@@ -1,3 +1,6 @@
+//
+//  share.m
+//  Created by song on 2017/7/7.
 
 #import "sharemodule.h"
 
@@ -56,12 +59,14 @@ RCT_EXPORT_METHOD(share:(NSString*)title descr:(NSString*)descr
   dispatch_async(dispatch_get_main_queue(), ^{
     //调用分享接口
     [[UMSocialManager defaultManager] shareToPlatform:type messageObject:messageObject currentViewController:nil completion:^(id data, NSError *error) {
-      
-      NSString * code = [NSString stringWithFormat:@"%ld",(long)error.code];
-      NSString *message = data;
-      
+      NSString *message = @"分享成功";
       if (error) {
         UMSocialLogInfo(@"************Share fail with error %@*********",error);
+        if(error.code == 2009){
+          message = @"取消分享";
+        }else{
+          message = @"分享失败";
+        }
       }else{
         if ([data isKindOfClass:[UMSocialShareResponse class]]) {
           UMSocialShareResponse *resp = data;
@@ -69,23 +74,18 @@ RCT_EXPORT_METHOD(share:(NSString*)title descr:(NSString*)descr
           UMSocialLogInfo(@"response message is %@",resp.message);
           //第三方原始返回的数据
           UMSocialLogInfo(@"response originalResponse data is %@",resp.originalResponse);
-          code = @"200";
-          message = resp.originalResponse;
+          //          code = @"200";
+          //          message = resp.originalResponse;
         }else{
           UMSocialLogInfo(@"response data is %@",data);
         }
         
       }
-      callback( [[NSArray alloc] initWithObjects:code,message, nil]);
+      callback( [[NSArray alloc] initWithObjects:message, nil]);
     }];
-   
+    
   });
-  
- 
-  
-  
 }
 
 @end
-
 
