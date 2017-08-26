@@ -28,8 +28,11 @@ export default class ReactNativeShare extends Component {
     _share() {
         UShare.share('标题','内容',
          'http://baidu.com','http://dev.umeng.com/images/tab2_1.png', SharePlatform.QQ,
-            (code, message) => {
-                // 分享成功：code=200
+            (message) => {
+                // message:
+                // 分享成功
+                // 分享失败
+                // 取消分享
                 // ToastAndroid.show(message,ToastAndroid.SHORT);
                 
         });
