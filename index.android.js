@@ -23,9 +23,14 @@ export default class ReactNativeShare extends Component {
   */
   _share() {
      NativeModules.sharemodule.share('标题','内容', 'http://baidu.com','http://dev.umeng.com/images/tab2_1.png', 2,
-     (code, message) => {
-            ToastAndroid.show(message,ToastAndroid.SHORT);
-     });
+      (message) => {
+                // message:
+                // 分享成功
+                // 分享失败
+                // 取消分享
+                // ToastAndroid.show(message,ToastAndroid.SHORT);
+                
+        });
   }
 render() {
     return (
