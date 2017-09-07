@@ -131,10 +131,10 @@
           super.onActivityResult(requestCode, resultCode, data);  
           UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);  
       }  
-      
 #### 【 注意事项 】
- 很多人遇到一个问题：如果第一次把微信的签名写错了，可能会在分享的时候总是一闪而过。改对之后， 还会一直闪。     
-【 解决办法 】：卸载微信 重新安装即可。具体原因应该是微信缓存的作用【 清理微信缓存无效 】 
+ 如果第一次把微信的签名写错了，可能会在分享的时候总是一闪而过。改对之后， 还会一直闪。     
+【 解决办法 】
+ 卸载微信 重新安装即可。具体原因应该是微信缓存的作用【 清理微信缓存无效 】 
 
 #### 【 iOS平台配置 】
 ##### 1. 将源码中 ios 目录下的UMSocial添加到工程，直接拖进即可
