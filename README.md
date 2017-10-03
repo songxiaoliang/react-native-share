@@ -2,6 +2,11 @@
 #### [一行代码，双平台分享]  支持平台：【QQ】【QQ空间】【微信】【朋友圈】【微博】【FaceBook】
 #### 详细配置：http://blog.csdn.net/u013718120/article/details/75040805
 
+#### 【 注意事项 】
+ 如果第一次把微信的签名写错了，可能会在分享的时候总是一闪而过。改对之后， 还会一直闪。     
+【 解决办法 】
+ 卸载微信 重新安装即可。具体原因应该是微信缓存的作用【 清理微信缓存无效 】 
+ 
 #### 【 Android平台配置 】
 ##### 1. app目录下创建 libs 文件夹，添加依赖文件【直接复制源码中 libs 目录即可】
 ##### 2. app / src / main 目录下创建 jniLibs 目录，添加JNI文件【直接复制源码中 jniLibs 目录即可】
@@ -131,10 +136,7 @@
           super.onActivityResult(requestCode, resultCode, data);  
           UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);  
       }  
-#### 【 注意事项 】
- 如果第一次把微信的签名写错了，可能会在分享的时候总是一闪而过。改对之后， 还会一直闪。     
-【 解决办法 】
- 卸载微信 重新安装即可。具体原因应该是微信缓存的作用【 清理微信缓存无效 】 
+
 
 #### 【 iOS平台配置 】
 ##### 1. 将源码中 ios 目录下的UMSocial添加到工程，直接拖进即可
