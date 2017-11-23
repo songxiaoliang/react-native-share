@@ -12,7 +12,8 @@
 ##### 2. app / src / main 目录下创建 jniLibs 目录，添加JNI文件【直接复制源码中 jniLibs 目录即可】
 ##### 3. 包名目录下，引入所需交互代码【直接复制源码中 apshare、wxapi 、 WBShareActivity 、module 即可，注意import的路径是否正确】
 ##### 4. 在AndroidMainfest.xml文件下添加权限【直接复制源码即可】
-    <uses-permission android:name="android.permission.INTERNET" />  
+```xml
+    <uses-permission android:name="android.permission.INTERNET" />  
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />  
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />  
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />  
@@ -20,9 +21,10 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>  
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />  
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />  
-    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />  
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />  
+```
 ##### 5. 在AndroidMainfest.xml文件下的 <application></application>中添加分享平台【直接复制源码即可】
-
+```xml
     <activity  
         android:name=".WBShareActivity"  
         android:configChanges="keyboardHidden|orientation"  
@@ -72,15 +74,18 @@
     <meta-data  
         android:name="UMENG_APPKEY"  
         android:value="561cae6ae0f55abd990035bf" >   <= 改为自己申请的友盟Key  
-    </meta-data>  
-
+    </meta-data>  
+```
 ##### 6. 使用【keytool -genkey -v -keystore my-release-key.keystore -alias my-key-alias -keyalg RSA -keysize 2048 -validity 10000】生成签名文件，并将签名文件放入app目录
 ##### 7. 在gradle.properties文件下，添加签名信息【直接复制源码即可】
+```xml
      MYAPP_RELEASE_STORE_FILE=my-release-key.keystore  
      MYAPP_RELEASE_KEY_ALIAS=my-key-alias  
      MYAPP_RELEASE_STORE_PASSWORD=123456（填写自己设置的密码）  
-     MYAPP_RELEASE_KEY_PASSWORD=123456 （填写自己设置的密码）  
+     MYAPP_RELEASE_KEY_PASSWORD=123456 （填写自己设置的密码）  
+```
 ##### 8. 在app / build.gradle 文件下的添加签名配置【直接复制源码即可】
+```xml
      android {     
        ...     
        defaultConfig {     
@@ -100,8 +105,10 @@
           signingConfig signingConfigs.release     
          }     
        }    
-     }    
+     } 
+```
 ##### 9. 在MainApplication中初始化分享【直接复制源码即可】
+```java
     @Override  
     protected List<ReactPackage> getPackages() {  
       return Arrays.<ReactPackage>asList(  
@@ -123,8 +130,10 @@
       PlatformConfig.setWeixin("wx083bf496cbc48aec", "750e9075fa521c82274a9d548c399825");  
       PlatformConfig.setQQZone("1106207359", "3JjbG8aXMuh5w0sV");  
       PlatformConfig.setSinaWeibo("2733400964", "fac50980a44e3e3afd4bc968ea572887", "www.baidu.com");  
-    }  
+    }  
+```
 ##### 10. 在MainActivity中初始化分享回调【直接复制源码即可】
+```java
     @Override  
       protected void onCreate(Bundle savedInstanceState) {  
           super.onCreate(savedInstanceState);  
@@ -137,7 +146,7 @@
           UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);  
       }  
 
-
+```
 #### 【 iOS平台配置 】
 ##### 1. 将源码中 ios 目录下的UMSocial添加到工程，直接拖进即可
 ##### 2. 选择TARGET下的项目，在Build Setting下找到Other Linker Flags加入-ObjC ，注意不要写为-Objc
@@ -152,6 +161,7 @@ libc++.tbd
 libz.tbd
 
 ##### 4. 配置SSO白名单【直接复制即可】
+```xml
     <key>LSApplicationQueriesSchemes</key>  
     <array>  
         <!-- 微信 URL Scheme 白名单-->  
@@ -210,8 +220,8 @@ libz.tbd
         <string>fb-messenger-api</string>  
         <string>fbauth2</string>  
         <string>fbshareextension</string>  
-    </array>  
-    
+    </array>  
+```
 ##### 5. 配置URL Scheme
 ##### 微信 	微信appKey 	wxdc1e388c3822c80b 	 
 ##### QQ/Qzone/TIM 	需要添加两项URL Scheme：
@@ -224,7 +234,7 @@ libz.tbd
 ##### 6.在AppDelegate.m中初始化U-Share及第三方平台
 ##### （1）引入头文件: #import<UMSocialCore/UMSocialCore.h>【直接复制即可】
 ##### （2）launchOptions中设置友盟Key【直接复制即可】
-
+```java
     /* 打开调试日志 */  
     [[UMSocialManager defaultManager] openLog:YES];  
       
@@ -234,8 +244,10 @@ libz.tbd
     [self configUSharePlatforms];  
       
     [self confitUShareSettings];  
+ ```
 ##### （3）添加如下代码，配置第三方平台【直接复制即可，修改对应key,secret】
-    - (void)configUSharePlatforms  
+```objective-c
+    - (void)configUSharePlatforms  
     {  
         /*  
          设置微信的appKey和appSecret 
@@ -271,12 +283,12 @@ libz.tbd
              // 其他如支付等SDK的回调  
         }  
         return result;  
-    }  
-
+    }  
+```
 ##### 7. 将 ios 目录下【sharemodule.h】、【sharemodule.m】文件拖入你的项目即可
 
 #### 【 分享 】
-
+```jsx
     import UShare from './share/share';  
     import SharePlatform from './share/SharePlatform';  
 
@@ -294,4 +306,5 @@ libz.tbd
               // 分享成功：code=200  
               // ToastAndroid.show(message,ToastAndroid.SHORT);  
                 
-      });  
+      });  
+```
