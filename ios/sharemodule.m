@@ -1,37 +1,19 @@
-//
-//  share.m
-//  Created by song on 2017/7/7.
+//  sharemodule.m
+//  Created by Songlcy on 2017/12/01.
 
 #import "sharemodule.h"
 
-
+#import <Foundation/Foundation.h>
 #import <React/RCTBridgeModule.h>
 #import <UMSocialCore/UMSocialCore.h>
 #import <UMSocialCore/UMSocialManager.h>
 
 @implementation sharemodule
-
-
 RCT_EXPORT_MODULE(sharemodule)
-RCT_EXPORT_METHOD(share:(NSString*)title descr:(NSString*)descr
-                  webpageUrl:(NSString*)webpageUrl
-                  thumbURL:(NSString*)thumbURLl
-                  NSInteger:(NSInteger)platformType
-                  callback:(RCTResponseSenderBlock)callback
-                  )
-{
-  //创建分享消息对象
-  UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
-  //创建网页内容对象
-  NSString* thumbURL =  thumbURLl;
-  UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:title descr:descr thumImage:thumbURL];
-  //设置网页地址
-  shareObject.webpageUrl = webpageUrl;
-  //分享消息对象设置分享内容对象
-  messageObject.shareObject = shareObject;
+
+- (UMSocialPlatformType)configPlatform: (NSInteger) platformType {
   
-  UMSocialPlatformType type = UMSocialPlatformType_Sina ;
-  
+  UMSocialPlatformType type = UMSocialPlatformType_Sina;
   switch (platformType) {
     case 0:
       type = UMSocialPlatformType_QQ;
@@ -54,11 +36,30 @@ RCT_EXPORT_METHOD(share:(NSString*)title descr:(NSString*)descr
     default:
       break;
   }
+  return type;
+}
 
+// 分享
+RCT_EXPORT_METHOD(share:(NSString*)title descr:(NSString*)descr
+                  webpageUrl:(NSString*)webpageUrl
+                  thumbURL:(NSString*)thumbURLl
+                  NSInteger:(NSInteger)platformType
+                  callback:(RCTResponseSenderBlock)callback
+                  )
+{
+  //创建分享消息对象
+  UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
+  //创建网页内容对象
+  NSString* thumbURL =  thumbURLl;
+  UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:title descr:descr thumImage:thumbURL];
+  //设置网页地址
+  shareObject.webpageUrl = webpageUrl;
+  //分享消息对象设置分享内容对象
+  messageObject.shareObject = shareObject;
   
   dispatch_async(dispatch_get_main_queue(), ^{
     //调用分享接口
-    [[UMSocialManager defaultManager] shareToPlatform:type messageObject:messageObject currentViewController:nil completion:^(id data, NSError *error) {
+    [[UMSocialManager defaultManager] shareToPlatform: [self configPlatform: platformType]  messageObject:messageObject currentViewController:nil completion:^(id data, NSError *error) {
       NSString *message = @"分享成功";
       if (error) {
         UMSocialLogInfo(@"************Share fail with error %@*********",error);
@@ -85,6 +86,60 @@ RCT_EXPORT_METHOD(share:(NSString*)title descr:(NSString*)descr
     }];
     
   });
+}
+
+// 官方不推荐使用该方式
+//RCT_EXPORT_METHOD(authLogin:(NSInteger)platformType callback:(RCTResponseSenderBlock)callback){
+//  [[UMSocialManager defaultManager] authWithPlatform: [self configPlatform:platformType] currentViewController:nil completion:^(id result, NSError *error) {
+//
+//    NSDictionary *userdata = nil;
+//    NSNumber *code = @0;
+//
+//    if(error){
+//      code = @1;
+//      userdata = @{
+//                   @"code": code
+//                   };
+//    } else {
+//      UMSocialAuthResponse *authresponse = result;
+//
+//      userdata = @{
+//                   @"code": code,
+//                   @"uid": authresponse.uid,
+//                   @"accessToken": authresponse.accessToken
+//                   };
+//    }
+//    callback( [[NSArray alloc] initWithObjects: userdata, nil]);
+//  }];
+//}
+
+// 授权第三方登录
+RCT_EXPORT_METHOD(authLogin: (NSInteger) platformType callback: (RCTResponseSenderBlock) callback) {
+  
+  [[UMSocialManager defaultManager] getUserInfoWithPlatform: [self configPlatform: platformType]  currentViewController:nil completion:^(id result, NSError *error) {
+
+      NSNumber *code = @0;
+      NSDictionary *userdata = nil;
+      if(error) {
+        code = @1;
+        userdata = @{
+                     @"code": code
+                   };
+      } else {
+        UMSocialUserInfoResponse *userinfo = result;
+        userdata = @{
+                       @"code": code,
+                       @"userId": userinfo.uid,
+                       @"accessToken": userinfo.accessToken,
+                       @"userName": userinfo.name,
+                       @"userAvatar": userinfo.iconurl,
+                       @"userGender": userinfo.gender
+                     };
+       
+      }
+     callback( [[NSArray alloc] initWithObjects: userdata, nil]);
+  }];
+  
 }
 
 @end

@@ -41,10 +41,13 @@ public class MainApplication extends Application implements ReactApplication {
   public void onCreate() {
     super.onCreate();
     SoLoader.init(this,false);
+    // 此处配置类型，供后台分析各渠道时使用
     Config.shareType = "react native";
+    // 初始化Umeng分享
     UMShareAPI.get(this);
   }
 
+  // 配置平台key、secret信息
   {
     PlatformConfig.setWeixin("wx083bf496cbc48aec", "750e9075fa521c82274a9d548c399825");
     PlatformConfig.setQQZone("1106207359", "3JjbG8aXMuh5w0sV");

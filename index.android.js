@@ -1,42 +1,55 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
+ * react-native-share/login
+ * update by Songlcy 2017-12-02
  */
-
 import React, { Component } from 'react';
 import {
-  AppRegistry,
-  StyleSheet,
   Text,
   View,
   NativeModules,
-  ToastAndroid
+  StyleSheet,
+  AppRegistry
 } from 'react-native';
 
+import SharePlatform from './SharePlatform'
+
 export default class ReactNativeShare extends Component {
+
   /**
-  * content内容
-  * imgurl图片链接
-  * 平台：
-  *  0:QQ; 1:新浪; 2:微信; 3:微信朋友圈;4:FACEBOOK;
-  */
+   * 第三方分享
+   * 参数：标题、分享内容、分享链接、图片、平台、分享结果回调
+   */
   _share() {
-     NativeModules.sharemodule.share('标题','内容', 'http://baidu.com','http://dev.umeng.com/images/tab2_1.png', 2,
+     NativeModules.sharemodule.share('标题','内容', 'http://baidu.com','http://dev.umeng.com/images/tab2_1.png', SharePlatform.QQ,
       (message) => {
-                // message:
-                // 分享成功
-                // 分享失败
-                // 取消分享
-                // ToastAndroid.show(message,ToastAndroid.SHORT);
-                
-        });
+        // message: 分享成功、分享失败、取消分享
+        // TODO ... 
+    });
   }
-render() {
+
+  /**
+   * 第三方登录
+   * 参数：登录平台、登录结果回调
+   */
+  _getUserInfo() {
+    NativeModules.sharemodule.authLogin(SharePlatform.QQ, (result) => {
+      // code: 0成功、1失败、2取消
+      if(result.code === 0) {
+        console.log('授权登录成功:' + JSON.parse(result));
+      } else {
+        // TODO ...
+      }
+    });   
+  }
+
+  render() {
     return (
-      <View style={styles.container}>
-         <Text style={styles.welcome} onPress={this._share.bind(this)}>
-            分享
+      <View style={ styles.container }>
+         <Text style={ styles.title } onPress={ this._share.bind(this) }>
+            第三方分享
+         </Text>
+         <Text style={ styles.title } onPress={ this._getUserInfo.bind(this) }>
+            第三方登录
          </Text>
       </View>
     );
@@ -50,16 +63,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
   },
-  welcome: {
+
+  title: {
     fontSize: 20,
     textAlign: 'center',
     margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+  }
+
 });
 
 AppRegistry.registerComponent('ReactNativeShare', () => ReactNativeShare);
+
