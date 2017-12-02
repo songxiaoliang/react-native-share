@@ -11,6 +11,7 @@ import {
   AppRegistry
 } from 'react-native';
 
+import UShare from './share/share'
 import SharePlatform from './SharePlatform'
 
 export default class ReactNativeShare extends Component {
@@ -20,10 +21,10 @@ export default class ReactNativeShare extends Component {
      * 参数：标题、分享内容、分享链接、图片、平台、分享结果回调
      */
     _share() {
-        NativeModules.sharemodule.share('标题','内容', 'http://baidu.com','http://dev.umeng.com/images/tab2_1.png', SharePlatform.QQ,
+        UShare.share('标题','内容', 'http://baidu.com','http://dev.umeng.com/images/tab2_1.png', SharePlatform.QQ,
         (message) => {
-        // message: 分享成功、分享失败、取消分享
-        // TODO ... 
+            // message: 分享成功、分享失败、取消分享
+            // TODO ... 
         });
     }
 
@@ -32,7 +33,7 @@ export default class ReactNativeShare extends Component {
      * 参数：登录平台、登录结果回调
      */
     _getUserInfo() {
-        NativeModules.sharemodule.authLogin(SharePlatform.QQ, (result) => {
+        UShare.authLogin(SharePlatform.QQ, (result) => {
             // code: 0成功、1失败、2取消
             if(result.code === 0) {
                 console.log('授权登录成功:' + JSON.parse(result));

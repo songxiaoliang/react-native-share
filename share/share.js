@@ -1,5 +1,9 @@
 
+/**
+ * 原生桥接
+ */
 import {
     NativeModules
 } from 'react-native';
-module.exports = NativeModules.sharemodule;
+
+export default NativeModules.sharemodule;

@@ -1,3 +1,6 @@
+/**
+ * 平台
+ */
 const SharePlatform = {
     QQ: 0,
     SINA: 1,
