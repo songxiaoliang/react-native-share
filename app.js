@@ -31,12 +31,23 @@ export default class ReactNativeShare extends Component {
     /**
      * 第三方登录
      * 参数：登录平台、登录结果回调
+     *  'userId: ' 用户id
+        'accessToken: token
+        'userName: ' 用户昵称
+        'userGender: ' 用户性别
+        'userAvatar: ' 用户头像
      */
     _getUserInfo() {
         UShare.authLogin(SharePlatform.QQ, (result) => {
             // code: 0成功、1失败、2取消
             if(result.code === 0) {
-                console.log('授权登录成功:' + JSON.parse(result));
+                console.log('授权登录成功:' + 
+                    'userId: ' + result.uid + 
+                    'accessToken: ' + result.accessToken +
+                    'userName: ' + result.userName + 
+                    'userGender: ' + result.userGender + 
+                    'userAvatar: ' + result.userAvatar
+                );
             } else {
                 // TODO ...
             }
