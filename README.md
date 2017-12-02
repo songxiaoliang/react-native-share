@@ -288,7 +288,7 @@ libz.tbd
 ```
 ##### 7. 将 ios 目录下【sharemodule.h】、【sharemodule.m】文件拖入你的项目即可
 
-#### 【 分享 】
+#### 【 第三方分享 】
 ```jsx
     import UShare from './share/share';  
     import SharePlatform from './share/SharePlatform';  
@@ -302,10 +302,39 @@ libz.tbd
        * 5. 分享平台 
        * 6. 分享结果回调 
        */  
-      UShare.share('标题','内容','http://baidu.com','http://dev.umeng.com/images/tab2_1.png', SharePlatform.QQ,  
-          (code, message) => {  
-              // 分享成功：code=200  
-              // ToastAndroid.show(message,ToastAndroid.SHORT);  
-                
+      UShare.share('标题','内容','http://baidu.com','http://dev.umeng.com/images/tab2_1.png', SharePlatform.QQ, (message) => {   
+          // message:分享成功、分享失败、取消分享
+          // ToastAndroid.show(message,ToastAndroid.SHORT);  
       });  
+```
+
+#### 【 第三方登录 】
+```jsx
+    import UShare from './share/share';  
+    import SharePlatform from './share/SharePlatform';  
+
+    /**
+     * 第三方登录
+     * 参数：登录平台、登录结果回调
+     * 结果参数：
+     *  'userId: ' 用户id
+        'accessToken: token
+        'userName: ' 用户昵称
+        'userGender: ' 用户性别
+        'userAvatar: ' 用户头像
+     */ 
+     UShare.authLogin(SharePlatform.QQ, (result) => {
+         // code: 0成功、1失败、2取消
+         if(result.code === 0) {
+             console.log('授权登录成功:' + 
+                 'userId: ' + result.uid + 
+                 'accessToken: ' + result.accessToken +
+                 'userName: ' + result.userName + 
+                 'userGender: ' + result.userGender + 
+                 'userAvatar: ' + result.userAvatar
+             );
+         } else {
+             // TODO ...
+         }
+     });  
 ```
