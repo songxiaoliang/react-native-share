@@ -127,11 +127,12 @@
       UMShareAPI.get(this);  
     }  
       
-    // 配置平台，将AppKey 和 AppSecret 换成你申请的即可
+    // 配置平台，将AppKey 和 AppSecret 换成你申请的即可 
+    // 【注意】QQ 和 QQ 空间是同一个设置（同一个key、AppSecret）
     {  
-      PlatformConfig.setWeixin("wx083bf496cbc48aec", "750e9075fa521c82274a9d548c399825");  
-      PlatformConfig.setQQZone("1106207359", "3JjbG8aXMuh5w0sV");  
-      PlatformConfig.setSinaWeibo("2733400964", "fac50980a44e3e3afd4bc968ea572887", "www.baidu.com");  
+      PlatformConfig.setWeixin("wx083bf496cbc48aec", "750e9075fa521c82274a9d548c399825");
+      PlatformConfig.setQQZone("1106207359", "3JjbG8aXMuh5w0sV");  
+      PlatformConfig.setSinaWeibo("2733400964", "fac50980a44e3e3afd4bc968ea572887", "www.baidu.com"); 
     }  
 ```
 ##### 10. 在MainActivity中初始化分享回调【直接复制源码即可】
