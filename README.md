@@ -1,4 +1,6 @@
+
 # react-native-share
+
 #### [一行代码，双平台分享、登录]  
 #### 支持平台：【QQ】【QQ空间】【微信】【朋友圈】【微博】【FaceBook】
 #### 详细配置：http://blog.csdn.net/u013718120/article/details/75040805
