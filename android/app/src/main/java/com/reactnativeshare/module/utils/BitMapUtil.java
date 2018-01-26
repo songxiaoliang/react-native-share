@@ -1,5 +1,11 @@
-package com.uniapp.sharemodule.utils;
+package com.reactnativeshare.module.utils;
 
+/**
+ * 图片工具类
+ * Created by Songlcy on 2018/1/26.
+ */
+
+import java.io.ByteArrayOutputStream;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.ContentUris;
@@ -12,12 +18,6 @@ import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 
-import java.io.ByteArrayOutputStream;
-
-/**
- * 图片工具类
- * Created by Songlcy on 2018/1/26.
- */
 public class BitMapUtil {
 
     /**

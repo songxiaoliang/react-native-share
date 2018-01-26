@@ -3,16 +3,20 @@ package com.reactnativeshare.module;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 
+import com.d3o.R;
+import com.d3o.sharemodule.utils.BitMapUtil;
 import com.facebook.react.bridge.ActivityEventListener;
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.WritableNativeMap;
 import com.umeng.socialize.ShareAction;
@@ -52,6 +56,92 @@ public class ShareModule extends ReactContextBaseJavaModule implements ActivityE
         return "sharemodule";
     }
 
+
+    /**
+     * 分享手机本地图片
+     */
+    @ReactMethod
+    public void shareImg(String imgPath, final int platform, final Callback resultCallback) {
+
+        final SHARE_MEDIA sharePlatform = getSharePlatform(platform);
+        if(UMShareAPI.get(mActivity).isInstall(mActivity, sharePlatform)) {
+            Bitmap img = BitmapFactory.decodeFile(BitMapUtil.getImageAbsolutePath(mActivity, Uri.parse(imgPath)));
+            final UMImage image = new UMImage(mActivity, BitMapUtil.ImageCompress(img));
+            runOnMainThread(new Runnable() {
+                @Override
+                public void run() {
+                    new ShareAction(mActivity)
+                    .setPlatform(sharePlatform)
+                    .withMedia(image)
+                    .setCallback(new UMShareListener() {
+                        @Override
+                        public void onStart(SHARE_MEDIA share_media) {
+                            //分享开始的回调
+                        }
+
+                        @Override
+                        public void onResult(SHARE_MEDIA share_media) {
+                            resultCallback.invoke("分享成功");
+                        }
+
+                        @Override
+                        public void onError(SHARE_MEDIA share_media, Throwable throwable) {
+                            resultCallback.invoke("分享失败：" + throwable.getMessage());
+                        }
+
+                        @Override
+                        public void onCancel(SHARE_MEDIA share_media) {
+                            resultCallback.invoke("取消分享");
+                        }
+                    })
+                    .share();
+                }
+            });
+        }
+    }
+
+    /**
+     * 分享drawable图片
+     */
+    @ReactMethod
+    public void shareImage(final int platform, final Callback resultCallback) {
+
+        final SHARE_MEDIA sharePlatform = getSharePlatform(platform);
+        if(UMShareAPI.get(mActivity).isInstall(mActivity, sharePlatform)) {
+            final UMImage image = new UMImage(mActivity, R.drawable.ic_socialshare_qrcode);
+            runOnMainThread(new Runnable() {
+                @Override
+                public void run() {
+                    new ShareAction(mActivity)
+                    .setPlatform(sharePlatform)
+                    .withMedia(image)
+                    .setCallback(new UMShareListener() {
+                        @Override
+                        public void onStart(SHARE_MEDIA share_media) {
+                            //分享开始的回调
+                        }
+
+                        @Override
+                        public void onResult(SHARE_MEDIA share_media) {
+                            resultCallback.invoke("分享成功");
+                        }
+
+                        @Override
+                        public void onError(SHARE_MEDIA share_media, Throwable throwable) {
+                            resultCallback.invoke("分享失败：" + throwable.getMessage());
+                        }
+
+                        @Override
+                        public void onCancel(SHARE_MEDIA share_media) {
+                            resultCallback.invoke("取消分享");
+                        }
+                    })
+                    .share();
+                }
+            });
+        }
+    }
+
     /**
      * 分享链接
      * @param title
@@ -62,8 +152,8 @@ public class ShareModule extends ReactContextBaseJavaModule implements ActivityE
      * @param resultCallback
      */
     @ReactMethod
-    public void share(String title, String description, String contentUrl, String imgUrl,final int platform,
-                      final Callback resultCallback) {
+    public void share(String title, String description, String contentUrl,
+                      String imgUrl, final int platform, final Callback resultCallback) {
         final SHARE_MEDIA sharePlatform = getSharePlatform(platform);
         if(UMShareAPI.get(mActivity).isInstall(mActivity, sharePlatform)) {
             final UMWeb web = new UMWeb(contentUrl);
@@ -74,79 +164,36 @@ public class ShareModule extends ReactContextBaseJavaModule implements ActivityE
                 @Override
                 public void run() {
                     new ShareAction(mActivity)
-                            .setPlatform(sharePlatform)
-                            .withMedia(web) // 分享链接
-                            .setCallback(new UMShareListener() {
-                                @Override
-                                public void onStart(SHARE_MEDIA share_media) {
-                                    //分享开始的回调
-                                }
+                    .setPlatform(sharePlatform)
+                    .withMedia(web) // 分享链接
+                    .setCallback(new UMShareListener() {
+                        @Override
+                        public void onStart(SHARE_MEDIA share_media) {
+                            //分享开始的回调
+                        }
 
-                                @Override
-                                public void onResult(SHARE_MEDIA share_media) {
-                                    resultCallback.invoke("分享成功");
-                                }
+                        @Override
+                        public void onResult(SHARE_MEDIA share_media) {
+                            resultCallback.invoke("分享成功");
+                        }
 
-                                @Override
-                                public void onError(SHARE_MEDIA share_media, Throwable throwable) {
-                                    resultCallback.invoke("分享失败：" + throwable.getMessage());
-                                }
+                        @Override
+                        public void onError(SHARE_MEDIA share_media, Throwable throwable) {
+                            resultCallback.invoke("分享失败：" + throwable.getMessage());
+                        }
 
-                                @Override
-                                public void onCancel(SHARE_MEDIA share_media) {
-                                    resultCallback.invoke("取消分享");
-                                }
-                            })
-                            .share();
+                        @Override
+                        public void onCancel(SHARE_MEDIA share_media) {
+                            resultCallback.invoke("取消分享");
+                        }
+                    })
+                    .share();
                 }
             });
         } else {
             resultCallback.invoke("未安装该软件");
         }
     }
-
-
-    /**
-     * 三方授权登录
-     * 官方推荐使用第二种方式
-     */
-//    @ReactMethod
-//    public void authLogin(final int platform, final Callback resultCallback) {
-//
-//        final SHARE_MEDIA sharePlatform = getSharePlatform(platform);
-//        if(UMShareAPI.get(mActivity).isInstall(mActivity, sharePlatform)) {
-//            runOnMainThread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    UMShareAPI.get(mActivity).doOauthVerify(mActivity, sharePlatform, new UMAuthListener() {
-//
-//                        @Override
-//                        public void onStart(SHARE_MEDIA share_media) {
-//                        }
-//
-//                        @Override
-//                        public void onComplete(SHARE_MEDIA share_media, int i, Map<String, String> map) {
-//                            // 相比获取用户资料，授权只能返回uid和token等部分信息
-//                            Log.e("---", map + "!!!!!!");
-//                            resultCallback.invoke(0, map);
-//                        }
-//
-//                        @Override
-//                        public void onError(SHARE_MEDIA share_media, int i, Throwable throwable) {
-//                            resultCallback.invoke(1, throwable.getMessage());
-//                        }
-//
-//                        @Override
-//                        public void onCancel(SHARE_MEDIA share_media, int i) {
-//                            resultCallback.invoke(2, i);
-//                        }
-//                    });
-//                }
-//            });
-//        } else {
-//            resultCallback.invoke(3, "未安装该软件");
-//        }
-//    }
 
     /**
      * 获取用户授权资料
