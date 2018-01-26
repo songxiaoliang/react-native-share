@@ -293,6 +293,8 @@ libz.tbd
 ##### 7. 将 ios 目录下【sharemodule.h】、【sharemodule.m】文件拖入你的项目即可
 
 #### 【 第三方分享 】
+
+（1）图文分享
 ```jsx
     import UShare from './share/share';  
     import SharePlatform from './share/SharePlatform';  
@@ -310,6 +312,13 @@ libz.tbd
           // message:分享成功、分享失败、取消分享
           // ToastAndroid.show(message,ToastAndroid.SHORT);  
       });  
+```
+（2）纯图片分享
+```jsx
+    NativeModules.sharemodule.shareImg(image.path, SharePlatform.WECHAT, (result)=>{
+    });
+    
+   image.path即图片存储在手机上的位置，例如：file:///data/user/0/com.xxx/cache/react-native-image-crop-picker/eb62e869-b6d2-666.jpg
 ```
 
 #### 【 第三方登录 】
