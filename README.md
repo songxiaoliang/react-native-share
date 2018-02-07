@@ -4,9 +4,6 @@ react-native-share （IOS·Android）
 [![JavaScript Style Guide](https://cdn.rawgit.com/standard/standard/master/badge.svg)](https://github.com/standard/standard)
 
 
-#### [ 一行代码，双平台分享、登录 ]  支持平台：【 QQ 】【 QQ空间 】【 微信 】【 朋友圈 】【 微博 】【 FaceBook 】
-
-
 #### [ 功能 ]
 
 ##### 分享
@@ -14,6 +11,9 @@ react-native-share （IOS·Android）
 ###### (2) 本地纯图分享
 
 ##### 登录
+
+#####  支持平台：
+###### 【 QQ 】【 QQ空间 】【 微信 】【 朋友圈 】【 微博 】【 FaceBook 】
 
 #### 【 注意事项 】
 
