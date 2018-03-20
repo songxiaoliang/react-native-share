@@ -103,44 +103,44 @@ public class ShareModule extends ReactContextBaseJavaModule implements ActivityE
     /**
      * 分享drawable图片
      */
-    @ReactMethod
-    public void shareImage(final int platform, final Callback resultCallback) {
+//     @ReactMethod
+//     public void shareImage(final int platform, final Callback resultCallback) {
 
-        final SHARE_MEDIA sharePlatform = getSharePlatform(platform);
-        if(UMShareAPI.get(mActivity).isInstall(mActivity, sharePlatform)) {
-            final UMImage image = new UMImage(mActivity, R.drawable.ic_socialshare_qrcode);
-            runOnMainThread(new Runnable() {
-                @Override
-                public void run() {
-                    new ShareAction(mActivity)
-                    .setPlatform(sharePlatform)
-                    .withMedia(image)
-                    .setCallback(new UMShareListener() {
-                        @Override
-                        public void onStart(SHARE_MEDIA share_media) {
-                            //分享开始的回调
-                        }
+//         final SHARE_MEDIA sharePlatform = getSharePlatform(platform);
+//         if(UMShareAPI.get(mActivity).isInstall(mActivity, sharePlatform)) {
+//             final UMImage image = new UMImage(mActivity, R.drawable.ic_socialshare_qrcode);
+//             runOnMainThread(new Runnable() {
+//                 @Override
+//                 public void run() {
+//                     new ShareAction(mActivity)
+//                     .setPlatform(sharePlatform)
+//                     .withMedia(image)
+//                     .setCallback(new UMShareListener() {
+//                         @Override
+//                         public void onStart(SHARE_MEDIA share_media) {
+//                             //分享开始的回调
+//                         }
 
-                        @Override
-                        public void onResult(SHARE_MEDIA share_media) {
-                            resultCallback.invoke("分享成功");
-                        }
+//                         @Override
+//                         public void onResult(SHARE_MEDIA share_media) {
+//                             resultCallback.invoke("分享成功");
+//                         }
 
-                        @Override
-                        public void onError(SHARE_MEDIA share_media, Throwable throwable) {
-                            resultCallback.invoke("分享失败：" + throwable.getMessage());
-                        }
+//                         @Override
+//                         public void onError(SHARE_MEDIA share_media, Throwable throwable) {
+//                             resultCallback.invoke("分享失败：" + throwable.getMessage());
+//                         }
 
-                        @Override
-                        public void onCancel(SHARE_MEDIA share_media) {
-                            resultCallback.invoke("取消分享");
-                        }
-                    })
-                    .share();
-                }
-            });
-        }
-    }
+//                         @Override
+//                         public void onCancel(SHARE_MEDIA share_media) {
+//                             resultCallback.invoke("取消分享");
+//                         }
+//                     })
+//                     .share();
+//                 }
+//             });
+//         }
+//     }
 
     /**
      * 分享链接
