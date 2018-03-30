@@ -1,6 +1,6 @@
 
 react-native-share （IOS·Android）
-<img width="150" height="50" src="http://oleeed73x.bkt.clouddn.com/1522416959_163969.png"/>
+<img src="http://oleeed73x.bkt.clouddn.com/1522416959_163969.png"/>
 [![JavaScript Style Guide](https://cdn.rawgit.com/standard/standard/master/badge.svg)](https://github.com/standard/standard)
 
 
