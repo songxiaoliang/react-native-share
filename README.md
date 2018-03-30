@@ -27,10 +27,9 @@ react-native-share （IOS·Android）
 
 #### 【 Android平台配置 】
 ##### 1. app目录下创建 libs 文件夹，添加依赖文件【直接复制源码中 libs 目录即可】
-##### 2. app / src / main 目录下创建 jniLibs 目录，添加JNI文件【直接复制源码中 jniLibs 目录即可】
-##### 3. 包名目录下，引入所需交互代码【直接复制源码中 apshare、wxapi 、 WBShareActivity 、module 即可，注意import的路径是否正确】
+##### 2. 包名目录下，引入所需交互代码【直接复制源码中 wxapi  、module 即可，注意import的路径是否正确】
 ###### 【注意】如果react-native版本为0.50或以上，则需要将module文件夹中 ShareModule 类中的 createJSModule 方法删除即可。
-##### 4. 在AndroidMainfest.xml文件下添加权限【直接复制源码即可】
+##### 3. 在AndroidMainfest.xml文件下添加权限【直接复制源码即可】
 ```xml
     <uses-permission android:name="android.permission.INTERNET" />  
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />  
@@ -42,54 +41,59 @@ react-native-share （IOS·Android）
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />  
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />  
 ```
-##### 5. 在AndroidMainfest.xml文件下的 <application></application>中添加分享平台【直接复制源码即可】
+##### 4. 在AndroidMainfest.xml文件下的 <application></application>中添加分享平台【直接复制源码即可】
 ```xml
-    <activity  
-        android:name=".WBShareActivity"  
-        android:configChanges="keyboardHidden|orientation"  
-        android:screenOrientation="portrait" >  
-        <intent-filter>  
-            <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />  
-            <category android:name="android.intent.category.DEFAULT" />  
-        </intent-filter>  
-    </activity>  
-    <activity  
-        android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"  
-        android:configChanges="keyboardHidden|orientation"  
-        android:windowSoftInputMode="adjustResize"  
-        android:exported="false" >  
-    </activity>  
-    <service android:name="com.sina.weibo.sdk.net.DownloadService"  
-        android:exported="false"></service>  
-    <activity  
-        android:name=".wxapi.WXEntryActivity"  
-        android:configChanges="keyboardHidden|orientation|screenSize"  
-        android:exported="true"  
-        android:screenOrientation="portrait"  
-        android:theme="@android:style/Theme.Translucent.NoTitleBar" />  
-    <activity  
-        android:name="com.tencent.tauth.AuthActivity"  
-        android:launchMode="singleTask"  
-        android:noHistory="true" >  
-      
-        <intent-filter>  
-            <action android:name="android.intent.action.VIEW" />  
-            <category android:name="android.intent.category.DEFAULT" />  
-            <category android:name="android.intent.category.BROWSABLE" />  
-            <data android:scheme="tencent100424468" />  <= 改为自己申请的QQkey  
-        </intent-filter>  
-    </activity>  
-    <activity  
-        android:name="com.tencent.connect.common.AssistActivity"  
-        android:screenOrientation="portrait"  
-        android:theme="@android:style/Theme.Translucent.NoTitleBar"  
-        android:configChanges="orientation|keyboardHidden|screenSize"/>  
-    <activity  
-        android:name=".apshare.ShareEntryActivity"  
-        android:configChanges="keyboardHidden|orientation|screenSize"  
-        android:exported="true"  
-        android:screenOrientation="portrait"  
-        android:theme="@android:style/Theme.Translucent.NoTitleBar" />  
+  
+     <!-- 微信 -->
+     <activity
+         android:name=".wxapi.WXEntryActivity"
+         android:configChanges="keyboardHidden|orientation|screenSize"
+         android:exported="true"
+         android:screenOrientation="portrait"
+         android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+     <!-- QQ -->
+     <activity
+         android:name="com.tencent.tauth.AuthActivity"
+         android:launchMode="singleTask"
+         android:noHistory="true" >
+
+         <intent-filter>
+             <action android:name="android.intent.action.VIEW" />
+             <category android:name="android.intent.category.DEFAULT" />
+             <category android:name="android.intent.category.BROWSABLE" />
+             <data android:scheme="tencent100424468" />
+         </intent-filter>
+
+     </activity>
+
+     <activity
+         android:name="com.tencent.connect.common.AssistActivity"
+         android:screenOrientation="portrait"
+         android:theme="@android:style/Theme.Translucent.NoTitleBar"
+         android:configChanges="orientation|keyboardHidden|screenSize"/>
+     <!-- 微博 -->
+     <activity
+         android:name="com.umeng.socialize.media.WBShareCallBackActivity"
+         android:configChanges="keyboardHidden|orientation"
+         android:theme="@android:style/Theme.Translucent.NoTitleBar"
+         android:exported="false"
+         android:screenOrientation="portrait" >
+     </activity>
+     <activity android:name="com.sina.weibo.sdk.web.WeiboSdkWebActivity"
+         android:configChanges="keyboardHidden|orientation"
+         android:exported="false"
+         android:windowSoftInputMode="adjustResize"
+         >
+     </activity>
+     <activity
+         android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
+         android:launchMode="singleTask"
+         android:name="com.sina.weibo.sdk.share.WbShareTransActivity">
+         <intent-filter>
+             <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+             <category android:name="android.intent.category.DEFAULT" />
+         </intent-filter>
+     </activity> 
     <meta-data  
         android:name="UMENG_APPKEY"  
         android:value="561cae6ae0f55abd990035bf" >   <= 改为自己申请的友盟Key  
