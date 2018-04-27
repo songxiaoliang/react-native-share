@@ -146,18 +146,13 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.0.1'
     compile 'com.facebook.react:react-native:+'
     // From node_modules
-    compile files('libs/weiboSDKCore_3.1.4.jar')
-    compile files('libs/wechat-sdk-android-with-mta-1.1.6.jar')
+
     compile files('libs/umeng_social_tool.jar')
     compile files('libs/umeng_social_net.jar')
     compile files('libs/umeng_social_api.jar')
-    compile files('libs/SocialSDK_WeiXin_Full.jar')
-    compile files('libs/SocialSDK_Sina_Full.jar')
-    compile files('libs/SocialSDK_facebook.jar')
-    compile files('libs/SocialSDK_QQ_Full.jar')
-    compile files('libs/SocialSDK_alipay.jar')
-    compile files('libs/open_sdk_r5781.jar')
-    compile files('libs/libapshare.jar')
+    compile files('libs/SocialSDK_WeChat_Simplify.jar')
+    compile files('libs/SocialSDK_Sina_Simplify.jar')
+    compile files('libs/SocialSDK_QQ_Simplify.jar')
 }
 
 // Run this once to be able to run the application with BUCK
