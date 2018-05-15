@@ -102,6 +102,7 @@ android {
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
+        manifestPlaceholders = [qqappid: "填写你的 qq app id"]
     }
     signingConfigs {
         release {
@@ -147,12 +148,13 @@ dependencies {
     compile 'com.facebook.react:react-native:+'
     // From node_modules
 
-    compile files('libs/umeng_social_tool.jar')
-    compile files('libs/umeng_social_net.jar')
-    compile files('libs/umeng_social_api.jar')
-    compile files('libs/SocialSDK_WeChat_Simplify.jar')
-    compile files('libs/SocialSDK_Sina_Simplify.jar')
-    compile files('libs/SocialSDK_QQ_Simplify.jar')
+    compile files('libs/umeng-common-1.5.1.jar')
+    compile files('libs/umeng-share-core-6.9.1.jar')
+    compile files('libs/umeng-sharetool-6.9.1.jar')
+    compile files('libs/umeng-share-sina-simplify-6.9.1.jar')
+    compile files('libs/umeng-share-QQ-simplify-6.9.1.jar')
+    compile files('libs/umeng-share-wechat-simplify-6.9.1.jar')
+    compile files('libs/umeng-debug-1.0.0.jar')
 }
 
 // Run this once to be able to run the application with BUCK
