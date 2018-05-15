@@ -141,7 +141,7 @@
       super.onCreate();  
       SoLoader.init(this,false);  
       Config.shareType = "react native";  
-      UMShareAPI.get(this);  
+      UMConfigure.init(this,"友盟Key","umeng",UMConfigure.DEVICE_TYPE_PHONE,"");
     }  
       
     // 配置平台，将AppKey 和 AppSecret 换成你申请的即可 
