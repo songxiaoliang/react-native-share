@@ -43,31 +43,26 @@
 ##### 4. 在AndroidMainfest.xml文件下的 <application></application>中添加分享平台【直接复制源码即可】
 ```xml
   
-     <!-- 微信 -->
+      <!-- 微信 -->
      <activity
          android:name=".wxapi.WXEntryActivity"
          android:configChanges="keyboardHidden|orientation|screenSize"
          android:exported="true"
-         android:screenOrientation="portrait"
          android:theme="@android:style/Theme.Translucent.NoTitleBar" />
      <!-- QQ -->
      <activity
          android:name="com.tencent.tauth.AuthActivity"
          android:launchMode="singleTask"
          android:noHistory="true" >
-
          <intent-filter>
              <action android:name="android.intent.action.VIEW" />
              <category android:name="android.intent.category.DEFAULT" />
              <category android:name="android.intent.category.BROWSABLE" />
-             <data android:scheme="tencent100424468" />
+             <data android:scheme="tencent1106311619" />
          </intent-filter>
-
      </activity>
-
      <activity
          android:name="com.tencent.connect.common.AssistActivity"
-         android:screenOrientation="portrait"
          android:theme="@android:style/Theme.Translucent.NoTitleBar"
          android:configChanges="orientation|keyboardHidden|screenSize"/>
      <!-- 微博 -->
@@ -92,7 +87,7 @@
              <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
              <category android:name="android.intent.category.DEFAULT" />
          </intent-filter>
-     </activity> 
+     </activity>
     <meta-data  
         android:name="UMENG_APPKEY"  
         android:value="561cae6ae0f55abd990035bf" >   <= 改为自己申请的友盟Key  
@@ -112,6 +107,7 @@
        ...     
        defaultConfig {     
          ...     
+         manifestPlaceholders = [qqappid: "填写自己的 qq app id"]
        }     
        signingConfigs {     
          release {     
