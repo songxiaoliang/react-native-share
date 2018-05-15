@@ -40,7 +40,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />  
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />  
 ```
-##### 4. 在AndroidMainfest.xml文件下的 <application></application>中添加分享平台【直接复制源码即可】
+##### 4. 在AndroidMainfest.xml文件下的 <application></application>中添加分享平台【直接复制源码即可】，注意QQ配置中，scheme的值：tencen后面要改成自己的qq app id .
 ```xml
   
       <!-- 微信 -->
@@ -58,7 +58,8 @@
              <action android:name="android.intent.action.VIEW" />
              <category android:name="android.intent.category.DEFAULT" />
              <category android:name="android.intent.category.BROWSABLE" />
-             <data android:scheme="tencent1106311619" />
+             <!-- tencent + 自己的qq app id  -->
+             <data android:scheme="tencent110631169" />
          </intent-filter>
      </activity>
      <activity
