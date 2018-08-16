@@ -11,7 +11,7 @@ import com.reactnativeshare.module.SharePackage;
 import com.umeng.socialize.Config;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
-
+import com.umeng.commonsdk.UMConfigure;
 import java.util.Arrays;
 import java.util.List;
 
