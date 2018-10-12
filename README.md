@@ -351,7 +351,7 @@ libz.tbd
 ```
 （2）纯图片分享
 ```jsx
-    NativeModules.sharemodule.shareImg(image.path, SharePlatform.WECHAT, (result)=>{
+    NativeModules.sharemodule.shareImage(image.path, SharePlatform.WECHAT, (result)=>{
     });
     
    image.path即图片存储在手机上的位置，例如：file:///data/user/0/com.xxx/cache/react-native-image-crop-picker/eb62e869-b6d2-666.jpg
