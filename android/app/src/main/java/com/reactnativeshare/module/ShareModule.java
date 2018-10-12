@@ -61,7 +61,7 @@ public class ShareModule extends ReactContextBaseJavaModule implements ActivityE
      * 分享手机本地图片
      */
     @ReactMethod
-    public void shareImg(String imgPath, final int platform, final Callback resultCallback) {
+    public void shareImage(String imgPath, final int platform, final Callback resultCallback) {
 
         final SHARE_MEDIA sharePlatform = getSharePlatform(platform);
         if(UMShareAPI.get(mActivity).isInstall(mActivity, sharePlatform)) {
