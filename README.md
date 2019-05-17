@@ -27,7 +27,6 @@
 #### 【 Android平台配置 】
 ##### 1. app目录下创建 libs 文件夹，添加依赖文件【直接复制源码中 libs 目录即可】
 ##### 2. 包名目录下，引入所需交互代码【直接复制源码中 wxapi  、module 即可，注意import的路径是否正确】
-###### 【注意】如果react-native版本为0.50或以上，则需要将module文件夹中 SharePackage 类中的 createJSModule 方法删除即可。
 ##### 3. 在AndroidMainfest.xml文件下添加权限【直接复制源码即可】
 ```xml
     <uses-permission android:name="android.permission.INTERNET" />  
